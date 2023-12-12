@@ -45,7 +45,6 @@ class Level:
                     self.gates.add(gate)
                 elif cell == "B":
                     button = Button((x, y))
-                    print("Button")
                     self.buttons.add(button)
                 elif cell == "P":
                     player_sprite = Player((x, y), self.display_surface)

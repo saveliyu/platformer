@@ -1,20 +1,20 @@
 level_map = [
-    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-    'X                          X     X',
-    'X                          X     X',
-    'X                          X     X',
-    'X                          X     X',
-    'X                          G     X',
-    'X                                X',
-    'X       B           P B          X',
-    'X   LXXXXXXXXXXXXTTXXXXXXXXXXXXXXX',
-    'X   LX                            ',
-    'X   LX                            ',
-    'X   LX                            ',
-    'X   LX                            ',
-    'X   LX                            ',
-    'X   LX                            ',
-    'XTTXXX                               ']
+    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+    'X                                     X     X',
+    'X                                     X     X',
+    'X                                     X     X',
+    'X                                     X     X',
+    'X                                     G     X',
+    'X                                           X',
+    'X                             B             X',
+    'X            LXXXXXXXXXXXXTTXXXXXXXXXXXXXXXXX',
+    'X            LX                              ',
+    'X            LX                              ',
+    'X            LX                              ',
+    'X            LX                              ',
+    'X            LX                              ',
+    'X   P        LX                              ',
+    'XXXXXXXXXXXXXXX                              ']
 # во сколько раз увеличивать все спрайты
 scaling = 2
 

@@ -1,7 +1,7 @@
 import pygame
 
 from support import load_image
-from debug import debug
+
 
 
 class Gate(pygame.sprite.Sprite):
@@ -30,7 +30,6 @@ class Gate(pygame.sprite.Sprite):
             self.rect.y -= self.speed
 
     def update(self, x_shift):
-        debug(str(self.openning) + str(self.first_pos) + str(self.rect.y + self.rect.height))
         # движение камеры
         self.rect.x += x_shift
         self.open()
