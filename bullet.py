@@ -23,6 +23,7 @@ class Bullet(pygame.sprite.Sprite):
         # настройка скорости и направления
         self.direction = pygame.math.Vector2(direction, 0)
         self.speed = 8
+        self.hit_sfx = pygame.mixer.Sound("sfx/hit.wav")
 
     def import_bullet_assets(self):
         # создание словаря со списками нарезанных по кадрово спрайтами

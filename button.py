@@ -15,6 +15,7 @@ class Button(pygame.sprite.Sprite):
 
         # настройка квадрата спрайта для того что бы пуля спавнилась там где надо
         self.rect = self.image.get_rect(topleft=pos)
+        self.press_sfx = pygame.mixer.Sound("sfx/buttonpress.wav")
 
     def import_button_assets(self):
         # создание словаря со списками нарезанных по кадрово спрайтами
@@ -23,7 +24,7 @@ class Button(pygame.sprite.Sprite):
 
     def turn_on(self):
         self.enable = False
-
+        self.press_sfx.play()
 
     def update(self, x_shift):
         if self.enable:

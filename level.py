@@ -95,6 +95,7 @@ class Level:
             for bullet in bullets:
                 if sprite.rect.colliderect(bullet.rect):
                     bullet.status = 'player-shoot-hit'
+                    bullet.hit_sfx.play()
 
         for sprite in self.tiles.sprites():
             if sprite.rect.colliderect(player.rect):

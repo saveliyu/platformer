@@ -17,9 +17,16 @@ class Gate(pygame.sprite.Sprite):
         self.openning = False
 
         self.speed = 1
+        self.isnt_open = True
+        self.open_sfx = pygame.mixer.Sound("sfx/gate_opening.wav")
+        self.open_sfx.set_volume(0.5)
 
     def open(self):
         if self.openning and self.first_pos != self.rect.y + self.rect.height:
+            if self.isnt_open:
+                self.open_sfx.play()
+                self.isnt_open = False
+                print('s')
             self.openning = True
         else:
             self.openning = False

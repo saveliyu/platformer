@@ -31,9 +31,22 @@ class Player(pygame.sprite.Sprite):
         self.on_right = False
         self.on_ladder = False
         self.is_shooting = False
+        self.last_animation = "idle"
 
         # bullets
         self.bullets = pygame.sprite.Group()
+
+        self.load_sfx()
+
+    def load_sfx(self):
+        self.jump_sfx = pygame.mixer.Sound("sfx/jump.wav")
+        self.jump_sfx.set_volume(0.7)
+        self.shoot_sfx = pygame.mixer.Sound("sfx/shoot.wav")
+        self.shoot_sfx.set_volume(0.3)
+        self.step_sfx = pygame.mixer.Sound("sfx/steps1.wav")
+        self.step_sfx.set_volume(0.1)
+        self.bounce_sfx = pygame.mixer.Sound("sfx/bounce.wav")
+        self.ladder_sfx = pygame.mixer.Sound("sfx/ladder.wav")
 
     def import_character_assets(self):
         character_path = "graphics/player/"
@@ -51,10 +64,17 @@ class Player(pygame.sprite.Sprite):
         return False
 
     def animate(self):
+        if self.last_animation == 'fall' and self.status != 'fall':
+            self.bounce_sfx.play()
+            self.last_animation = 'idle'
+
         animation = self.animations[self.status]
 
         # loop over frame index
+        last_frame = self.frame_index
         self.frame_index += self.animation_speed
+        if self.status == 'run' and int(self.frame_index) > int(last_frame) and int(self.frame_index) % 2 == 0:
+            self.step_sfx.play()
 
         if self.status == 'run-shoot' and int(abs(self.frame_index - self.maxindex)) == 0:
             self.shoot()
@@ -66,7 +86,8 @@ class Player(pygame.sprite.Sprite):
             elif self.status == 'shoot':
                 self.shoot()
                 self.is_shooting = False
-
+        if self.frame_index == 0 and self.status == 'ladder':
+            self.ladder_sfx.play()
         image = animation[int(self.frame_index)]
         if self.facing_right:
             self.image = image
@@ -88,6 +109,7 @@ class Player(pygame.sprite.Sprite):
             self.rect = self.image.get_rect(midtop=self.rect.midtop)
 
     def shoot(self):
+        self.shoot_sfx.play()
         if self.facing_right:
             bullet = Bullet(self.rect.topright, 1)
         else:
@@ -97,7 +119,7 @@ class Player(pygame.sprite.Sprite):
     def get_input(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_w] and self.on_ladder:
-            self.direction.y = -2
+            self.direction.y = -4
         elif keys[pygame.K_d]:
             self.direction.x = 1
             self.facing_right = True
@@ -113,9 +135,11 @@ class Player(pygame.sprite.Sprite):
             self.maxindex = self.frame_index + 5
 
         if keys[pygame.K_SPACE]:
+
             self.frame_index = 0
             if self.on_ground:
                 self.jump()
+                self.jump_sfx.play()
 
     def get_status(self):
         if self.is_shooting and self.direction:
@@ -128,6 +152,7 @@ class Player(pygame.sprite.Sprite):
             self.status = "jump"
         elif self.direction.y > 0:
             self.status = "fall"
+            self.last_animation = "fall"
         elif self.direction.x != 0:
             self.status = "run"
         else:
@@ -141,6 +166,7 @@ class Player(pygame.sprite.Sprite):
         self.direction.y = self.jump_speed
 
     def update(self, world_shift):
+
         self.bullets.draw(self.display_surface)
         self.bullets.update(world_shift)
         self.get_input()
