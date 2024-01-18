@@ -14,10 +14,10 @@ def load_image(filename, scaling=scaling):
     sheet = pygame.transform.scale(sheet, (sheet.get_width() * scaling, sheet.get_height() * scaling))
     return sheet
 
-def import_sprite_sheet(path, sizex):
+def import_sprite_sheet(path, sizex, scaling=scaling):
     sizex *= scaling
 
-    sheet = load_image(path)
+    sheet = load_image(path, scaling=scaling)
 
     # по кадровое "вырезание" из спрайтщита
     rect = pygame.Rect(0, 0, sizex, sheet.get_height())

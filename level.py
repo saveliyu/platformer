@@ -6,6 +6,7 @@ from player import Player
 from button import Button
 from ui import Clue
 from gate import Gate
+from ui import StatusBar
 
 class Level:
     def __init__(self, level_data, surface):
@@ -28,6 +29,9 @@ class Level:
         self.ui = pygame.sprite.Group()
         self.gates = pygame.sprite.Group()
 
+        self.statusbar = pygame.sprite.Group()
+        statusbar = StatusBar()
+        self.statusbar.add(statusbar)
 
         for row_index, row in enumerate(layout):
             for col_index, cell in enumerate(row):
@@ -185,3 +189,6 @@ class Level:
         # traps
         self.traps.update(self.world_shift)
         self.traps.draw(self.display_surface)
+
+        self.statusbar.sprites()[0].update_states(self.player.sprite.health_point, self.player.sprite.bullets_count)
+        self.statusbar.draw(self.display_surface)

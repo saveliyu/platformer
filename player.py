@@ -21,7 +21,6 @@ class Player(pygame.sprite.Sprite):
         self.speed = 3
         self.gravity = 0.65
         self.jump_speed = -11
-        self.health_point = 3
 
         # player status
         self.status = 'idle'
@@ -35,9 +34,12 @@ class Player(pygame.sprite.Sprite):
         self.last_animation = "idle"
         self.is_drowned = False
 
+        # player states
+        self.health_point = 8
+        self.bullets_count = 9
+
         # bullets
         self.bullets = pygame.sprite.Group()
-
 
         self.load_sfx()
 
@@ -53,6 +55,9 @@ class Player(pygame.sprite.Sprite):
         self.drown_sfx = pygame.mixer.Sound("sfx/drown1.wav")
         # кол-во кадров для проигрывания звука смерти от лавы
         self.drown_timer = 120
+
+    def statusbar_update(self):
+        pass
 
     def import_character_assets(self):
         character_path = "graphics/player/"
@@ -134,7 +139,8 @@ class Player(pygame.sprite.Sprite):
             self.facing_right = False
         else:
             self.direction.x = 0
-        if list(pygame.mouse.get_pressed())[0] and not self.is_shooting:
+        if list(pygame.mouse.get_pressed())[0] and not self.is_shooting and self.bullets_count > 0:
+            self.bullets_count -= 1
             self.is_shooting = True
             if self.direction.x == 0:
                 self.frame_index = 0
@@ -181,3 +187,4 @@ class Player(pygame.sprite.Sprite):
             self.direction.x = 0
         self.get_status()
         self.animate()
+
