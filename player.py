@@ -21,6 +21,7 @@ class Player(pygame.sprite.Sprite):
         self.speed = 3
         self.gravity = 0.65
         self.jump_speed = -11
+        self.health_point = 3
 
         # player status
         self.status = 'idle'
@@ -32,21 +33,26 @@ class Player(pygame.sprite.Sprite):
         self.on_ladder = False
         self.is_shooting = False
         self.last_animation = "idle"
+        self.is_drowned = False
 
         # bullets
         self.bullets = pygame.sprite.Group()
+
 
         self.load_sfx()
 
     def load_sfx(self):
         self.jump_sfx = pygame.mixer.Sound("sfx/jump.wav")
-        self.jump_sfx.set_volume(0.7)
+        self.jump_sfx.set_volume(0.5)
         self.shoot_sfx = pygame.mixer.Sound("sfx/shoot.wav")
         self.shoot_sfx.set_volume(0.3)
         self.step_sfx = pygame.mixer.Sound("sfx/steps1.wav")
         self.step_sfx.set_volume(0.1)
         self.bounce_sfx = pygame.mixer.Sound("sfx/bounce.wav")
         self.ladder_sfx = pygame.mixer.Sound("sfx/ladder.wav")
+        self.drown_sfx = pygame.mixer.Sound("sfx/drown1.wav")
+        # кол-во кадров для проигрывания звука смерти от лавы
+        self.drown_timer = 120
 
     def import_character_assets(self):
         character_path = "graphics/player/"
@@ -169,6 +175,9 @@ class Player(pygame.sprite.Sprite):
 
         self.bullets.draw(self.display_surface)
         self.bullets.update(world_shift)
-        self.get_input()
+        if self.health_point > 0:
+            self.get_input()
+        else:
+            self.direction.x = 0
         self.get_status()
         self.animate()

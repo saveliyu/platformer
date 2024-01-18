@@ -4,7 +4,7 @@ import sys
 import pygame
 from settings import scaling
 
-def load_image(filename):
+def load_image(filename, scaling=scaling):
     # проверка на наличие файла
     if not os.path.isfile(filename):
         print(f"Файл с изображением '{filename}' не найден")

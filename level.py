@@ -18,6 +18,8 @@ class Level:
         self.current_x = 0
 
     def setup_level(self, layout):
+        self.is_playing = True
+
         self.tiles = pygame.sprite.Group()
         self.ladders = pygame.sprite.Group()
         self.traps = pygame.sprite.Group()
@@ -128,7 +130,7 @@ class Level:
         player = self.player.sprite
         player.apply_gravity()
 
-        sprites = [*self.tiles.sprites(), *self.traps.sprites()]
+        sprites = self.tiles.sprites()
         for sprite in sprites:
             if sprite.rect.colliderect(player.rect):
                 if player.direction.y > 0:
@@ -140,20 +142,32 @@ class Level:
                     player.direction.y = 0
                     player.on_ceiling = True
 
+        for sprite in self.traps.sprites():
+            if sprite.rect.colliderect(player.rect):
+                if player.direction.y > 0:
+                    player.direction.y = 1
+                    player.health_point = 0
+                    if not player.is_drowned:
+                        player.is_drowned = True
+                        player.drown_sfx.play()
+                    else:
+                        player.drown_timer -= 1
+                    if player.drown_timer <= 0:
+                        self.is_playing = False
+
+
         if player.on_ground and player.direction.y < 0 or player.direction.y > 1:
             player.on_ground = False
         if player.on_ceiling and player.direction.y > 0:
             player.on_ceiling = False
 
     def run(self):
-
+        self.display_surface.fill('#151123')
         # level tiles
         self.tiles.update(self.world_shift)
         self.tiles.draw(self.display_surface)
         self.ladders.update(self.world_shift)
         self.ladders.draw(self.display_surface)
-        self.traps.update(self.world_shift)
-        self.traps.draw(self.display_surface)
         self.buttons.update(self.world_shift)
         self.buttons.draw(self.display_surface)
         self.ui.update(self.world_shift)
@@ -167,3 +181,7 @@ class Level:
         self.vertical_movement_collision( )
         self.player.update(self.world_shift)
         self.player.draw(self.display_surface)
+
+        # traps
+        self.traps.update(self.world_shift)
+        self.traps.draw(self.display_surface)

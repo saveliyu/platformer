@@ -13,8 +13,8 @@ level_map = [
     'X            LX                              ',
     'X            LX                              ',
     'X            LX                              ',
-    'X   P        LX                              ',
-    'XXXXXXXXXXXXXXX                              ']
+    'X       P    LX                              ',
+    'XXTTTTXXXXXXXXX                              ']
 # во сколько раз увеличивать все спрайты
 scaling = 2
 
