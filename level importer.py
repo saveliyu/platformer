@@ -16,10 +16,16 @@ for i in range(y):
             temp += 'L'
         elif [r, g, b] == [255, 0, 255]:
             temp += 'P'
+        elif [r, g, b] == [0, 255, 0]:
+            temp += 'C'
+        elif [r, g, b] == [255, 0, 0]:
+            temp += 'E'
+        elif [r, g, b] == [100, 70, 140]:
+            temp += 'O'
         else:
             temp += " "
     res.append(temp)
 
-with open('levels.py', 'w') as f:
+with open('levels3.py', 'w') as f:
     for line in res:
         f.write('"' + str(line) + '"' + ',\n')

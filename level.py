@@ -1,7 +1,8 @@
 import pygame
 
 from settings import tile_size, screen_width, scaling
-from tiles import Tile
+from tiles import Tile, Coin, AnimatedTile, TileEmpty
+from enemy import Enemy
 from player import Player
 from button import Button
 from ui import Clue
@@ -30,6 +31,9 @@ class Level:
         self.player = pygame.sprite.GroupSingle()
         self.ui = pygame.sprite.Group()
         self.gates = pygame.sprite.Group()
+        self.coins = pygame.sprite.Group()
+        self.enemy = pygame.sprite.Group()
+        self.constraint = pygame.sprite.Group()
 
         self.statusbar = pygame.sprite.Group()
         statusbar = StatusBar()
@@ -57,6 +61,16 @@ class Level:
                 elif cell == "P":
                     player_sprite = Player((x, y), self.display_surface)
                     self.player.add(player_sprite)
+                elif cell == "C":
+                    tile = Coin(tile_size,x,y,'graphics/temp/coin_anim', 1)
+                    self.coins.add(tile)
+                elif cell == "E":
+                    tile = Enemy(tile_size,x,y)
+                    self.enemy.add(tile)
+                elif cell == "O":
+                    tile = Tile((x, y), tile_size, "lava")
+                    self.constraint.add(tile)
+
 
         if self.player.sprite.rect.x >= screen_width:
             self.world_shift_update(-self.player.sprite.rect.x + screen_width // 2)
@@ -180,6 +194,13 @@ class Level:
         if player.on_ceiling and player.direction.y > 0:
             player.on_ceiling = False
 
+    def enemy_collision_reverse(self):
+        for en in self.enemy.sprites():
+            if pygame.sprite.spritecollide(en,self.constraint,False):
+                en.reverse()
+                print("hi")
+
+
     def world_shift_update(self, shift):
         self.tiles.update(shift)
         self.ladders.update(shift)
@@ -187,17 +208,27 @@ class Level:
         self.ui.update(shift)
         self.gates.update(shift)
         self.traps.update(shift)
+        self.coins.update(shift)
+
+        self.enemy.update(shift)
+        self.constraint.update(shift)
+        self.enemy_collision_reverse()
+
     def run(self):
         self.scroll_x()
         self.display_surface.fill('#151123')
         self.world_shift_update(self.world_shift)
-
+        
         # level tiles
         self.tiles.draw(self.display_surface)
         self.ladders.draw(self.display_surface)
         self.buttons.draw(self.display_surface)
         self.ui.draw(self.display_surface)
         self.gates.draw(self.display_surface)
+        self.coins.draw(self.display_surface)
+        
+        # enemy
+        self.enemy.draw(self.display_surface)
 
         # player
         self.horizontal_movement_collision()
@@ -210,3 +241,4 @@ class Level:
 
         self.statusbar.sprites()[0].update_states(self.player.sprite.health_point, self.player.sprite.bullets_count)
         self.statusbar.draw(self.display_surface)
+
