@@ -36,7 +36,7 @@ class Player(pygame.sprite.Sprite):
 
         # player states
         self.health_point = 8
-        self.bullets_count = 9
+        self.bullets_count = 17
 
         # bullets
         self.bullets = pygame.sprite.Group()
@@ -131,6 +131,7 @@ class Player(pygame.sprite.Sprite):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_w] and self.on_ladder:
             self.direction.y = -4
+            self.direction.x = 0
         elif keys[pygame.K_d]:
             self.direction.x = 1
             self.facing_right = True

@@ -3,7 +3,6 @@ import pygame
 from support import load_image, import_sprite_sheet
 from settings import screen_width
 
-
 class StatusBar(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()

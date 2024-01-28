@@ -1,12 +1,14 @@
 import pygame
 
-from settings import tile_size, screen_width
+from settings import tile_size, screen_width, scaling
 from tiles import Tile
 from player import Player
 from button import Button
 from ui import Clue
 from gate import Gate
 from ui import StatusBar
+
+from debug import debug
 
 class Level:
     def __init__(self, level_data, surface):
@@ -56,17 +58,30 @@ class Level:
                     player_sprite = Player((x, y), self.display_surface)
                     self.player.add(player_sprite)
 
+        if self.player.sprite.rect.x >= screen_width:
+            self.world_shift_update(-self.player.sprite.rect.x + screen_width // 2)
+            self.player.sprite.rect.x += -self.player.sprite.rect.x + screen_width // 2
+            self.player.sprite.rect.x += -self.player.sprite.rect.x + screen_width // 2
+
+
     def scroll_x(self):
         player = self.player.sprite
         player_x = player.rect.centerx
         direction_x = player.direction.x
-
         if player_x < screen_width // 4 and direction_x < 0:
-            self.world_shift = 3
-            player.speed = 0
+            if self.tiles.sprites()[0].rect.x < 0:
+                self.world_shift = 3
+                player.speed = 0
+            else:
+                self.world_shift = 0
+                player.speed = 3
         elif player_x > screen_width - screen_width // 4 and direction_x > 0:
-            self.world_shift = -3
-            player.speed = 0
+            if self.tiles.sprites()[-1].rect.x + tile_size > screen_width:
+                self.world_shift = -3
+                player.speed = 0
+            else:
+                self.world_shift = 0
+                player.speed = 3
         else:
             self.counter = 0
             self.world_shift = 0
@@ -165,29 +180,32 @@ class Level:
         if player.on_ceiling and player.direction.y > 0:
             player.on_ceiling = False
 
+    def world_shift_update(self, shift):
+        self.tiles.update(shift)
+        self.ladders.update(shift)
+        self.buttons.update(shift)
+        self.ui.update(shift)
+        self.gates.update(shift)
+        self.traps.update(shift)
     def run(self):
-        self.display_surface.fill('#151123')
-        # level tiles
-        self.tiles.update(self.world_shift)
-        self.tiles.draw(self.display_surface)
-        self.ladders.update(self.world_shift)
-        self.ladders.draw(self.display_surface)
-        self.buttons.update(self.world_shift)
-        self.buttons.draw(self.display_surface)
-        self.ui.update(self.world_shift)
-        self.ui.draw(self.display_surface)
-        self.gates.update(self.world_shift)
-        self.gates.draw(self.display_surface)
         self.scroll_x()
+        self.display_surface.fill('#151123')
+        self.world_shift_update(self.world_shift)
+
+        # level tiles
+        self.tiles.draw(self.display_surface)
+        self.ladders.draw(self.display_surface)
+        self.buttons.draw(self.display_surface)
+        self.ui.draw(self.display_surface)
+        self.gates.draw(self.display_surface)
 
         # player
         self.horizontal_movement_collision()
-        self.vertical_movement_collision( )
-        self.player.update(self.world_shift)
+        self.vertical_movement_collision()
+        self.player.update(0)
         self.player.draw(self.display_surface)
 
         # traps
-        self.traps.update(self.world_shift)
         self.traps.draw(self.display_surface)
 
         self.statusbar.sprites()[0].update_states(self.player.sprite.health_point, self.player.sprite.bullets_count)
