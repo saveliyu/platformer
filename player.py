@@ -18,9 +18,9 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(topleft=pos)
         # player movment
         self.direction = pygame.math.Vector2(0, 0)
-        self.speed = 3
+        self.speed = 6
         self.gravity = 0.65
-        self.jump_speed = -11
+        self.jump_speed = -7
 
         # player status
         self.status = 'idle'

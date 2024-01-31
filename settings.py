@@ -1,4 +1,13 @@
 level_map = [
+    '                                             ',
+    '                                             ',
+    '                                             ',
+    '                                             ',
+    '                                             ',
+    '                                             ',
+    '                                             ',
+    '                                             ',
+    '                                             ',
     'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
     'X                                     X     X',
     'X                                     X     X',
@@ -7,17 +16,17 @@ level_map = [
     'X                                     G     X',
     'X                                           X',
     'X                             B             X',
-    'X            LXXXXXXXXXXXXTTXXXXXXXXXXXXXXXXX',
+    'X    X     X LXXXXXXXXXXXXTTXXXXXXXXXXXXXXXXX',
     'X            LX                              ',
     'X            LX                              ',
     'X            LX                              ',
-    'X            LX                              ',
-    'X            LX                              ',
-    'X   P        LX                              ',
+    'X             X                              ',
+    'X             X                              ',
+    'X   P         X                              ',
     'XXXXXXXXXXXXXXX                              ']
 # во сколько раз увеличивать все спрайты
-scaling = 2
+scaling = 1
 
 tile_size = 16 * scaling
-screen_width = 1200
+screen_width = 600
 screen_height = tile_size * len(level_map)
