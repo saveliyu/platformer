@@ -6,6 +6,7 @@ class Enemy(AnimatedTile):
 	def __init__(self,size,x,y):
 		super().__init__(size,x,y,'graphics/enemies/skeleton/skeleton-walk')
 		self.rect.y += size - self.image.get_size()[1]
+		
 		self.speed = -randint(2,3)
 
 	def move(self):
