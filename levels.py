@@ -3,9 +3,9 @@ from image_button import ImageButton
 
 
 class Levels():
-    def __init__(self, screen):
-        self.max_levels = 5
-        self.current_level = 0
+    def __init__(self, screen, max_level, current_level):
+        self.max_levels = max_level
+        self.current_level = current_level
         self.display_surface = screen
         self.import_buttons()
         self.import_player()
