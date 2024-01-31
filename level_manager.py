@@ -7,6 +7,7 @@ from levels import Levels
 from level import Level
 from pause import Pause
 from debug import debug
+from level_transition import Transition
 
 class Manager():
     def __init__(self, screen):
@@ -19,6 +20,7 @@ class Manager():
         self.levels = Levels(screen, self.max_level, self.current_level)
         self.menu = Menu(screen)
         self.pause = Pause(screen)
+        self.trans = Transition(screen)
         self.screen = screen
         self.import_levels()
 
@@ -52,6 +54,13 @@ class Manager():
             self.restart_level()
             self.current_scene = 'game'
 
+        if self.loaded_levels[self.current_level].level_end():
+            self.current_level += 1
+            if self.max_level <= self.current_level:
+                self.max_level = self.current_level + 1
+            self.save_results()
+            self.current_scene = 'trans'
+
         if self.current_scene == 'menu':
             self.current_scene = self.menu.get_status()
             self.menu.update()
@@ -59,12 +68,12 @@ class Manager():
             self.current_scene, self.current_level = self.levels.get_status()
             self.levels.update()
         elif self.current_scene == 'game':
-            if self.loaded_levels[self.current_level].level_end():
-                self.current_level += 1
-                if self.max_level <= self.current_level:
-                    self.max_level = self.current_level + 1
-                self.save_results()
             self.loaded_levels[self.current_level].run()
+        elif self.current_scene == 'trans':
+            self.current_scene = self.trans.get_status()
+            if self.current_scene == 'restart':
+                self.current_level -= 1
+            self.trans.update()
         elif self.current_scene == 'pause':
             print(self.pause.get_status())
             self.current_scene = self.pause.get_status()
