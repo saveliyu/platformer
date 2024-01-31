@@ -13,6 +13,7 @@ class Manager():
             data = json.load(saves)
             self.current_level = data["current_level"]
             self.max_level = data["max_level"]
+        print(self.max_level, self.current_level)
         self.levels = Levels(screen, self.max_level, self.current_level)
         self.import_levels(screen)
         self.menu = Menu(screen)
@@ -22,14 +23,15 @@ class Manager():
                             Level(level_map[1], screen),
                             Level(level_map[2], screen)]
 
-
-
-
     def save_results(self):
         with open('saves.json') as saves:
             data = json.load(saves)
             data["current_level"] = self.current_level
             data["max_level"] = self.max_level
+
+        with open('saves.json', 'w') as file:
+            json.dump(data, file, ensure_ascii=False, indent=2)
+        print(data)
 
     def update(self):
         if self.current_scene == 'menu':
@@ -39,6 +41,11 @@ class Manager():
             self.current_scene, self.current_level = self.levels.get_status()
             self.levels.update()
         elif self.current_scene == 'game':
+            if self.loaded_levels[self.current_level].level_end():
+                self.current_level += 1
+                if self.max_level <= self.current_level:
+                    self.max_level = self.current_level + 1
+                self.save_results()
             self.loaded_levels[self.current_level].run()
             # x = (screen_width - game_over.get_width()) // 2
             # y = (screen_height - game_over.get_height()) // 2

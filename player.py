@@ -62,7 +62,7 @@ class Player(pygame.sprite.Sprite):
     def import_character_assets(self):
         character_path = "graphics/player/"
         self.animations = {'idle': [], 'run': [], 'jump': [], 'fall': [],
-                        'ladder': [], 'damage': [], 'shoot': [], 'run-shoot': []}
+                        'ladder': [], 'damage': [], 'shoot': [], 'run-shoot': [], 'spin': []}
 
         for animation in self.animations.keys():
             full_path = character_path + animation + ".png"
@@ -97,6 +97,8 @@ class Player(pygame.sprite.Sprite):
             elif self.status == 'shoot':
                 self.shoot()
                 self.is_shooting = False
+            elif self.status == 'spin':
+                self.status = "eblanit"
         if self.frame_index == 0 and self.status == 'ladder':
             self.ladder_sfx.play()
         image = animation[int(self.frame_index)]
@@ -155,21 +157,22 @@ class Player(pygame.sprite.Sprite):
                 self.jump_sfx.play()
 
     def get_status(self):
-        if self.is_shooting and self.direction:
-            self.status = "run-shoot"
-        elif self.is_shooting:
-            self.status = "shoot"
-        elif self.on_ladder and self.direction.y < 0:
-            self.status = "ladder"
-        elif self.direction.y < 0:
-            self.status = "jump"
-        elif self.direction.y > 0:
-            self.status = "fall"
-            self.last_animation = "fall"
-        elif self.direction.x != 0:
-            self.status = "run"
-        else:
-            self.status = "idle"
+        if self.status != 'spin':
+            if self.is_shooting and self.direction:
+                self.status = "run-shoot"
+            elif self.is_shooting:
+                self.status = "shoot"
+            elif self.on_ladder and self.direction.y < 0:
+                self.status = "ladder"
+            elif self.direction.y < 0:
+                self.status = "jump"
+            elif self.direction.y > 0:
+                self.status = "fall"
+                self.last_animation = "fall"
+            elif self.direction.x != 0:
+                self.status = "run"
+            else:
+                self.status = "idle"
 
     def apply_gravity(self):
         self.direction.y += self.gravity
@@ -182,7 +185,7 @@ class Player(pygame.sprite.Sprite):
 
         self.bullets.draw(self.display_surface)
         self.bullets.update(world_shift)
-        if self.health_point > 0:
+        if self.health_point > 0 and self.status != "spin":
             self.get_input()
         else:
             self.direction.x = 0

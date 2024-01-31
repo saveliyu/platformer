@@ -1,6 +1,6 @@
 from PIL import Image
 
-im = Image.open("graphics/temp/level2.png")
+im = Image.open("graphics/temp/level1.png")
 pixels = im.load()  # список с пикселями
 x, y = im.size  # ширина (x) и высота (y) изображения
 res = []
@@ -22,6 +22,8 @@ for i in range(y):
             temp += 'E'
         elif [r, g, b] == [100, 70, 140]:
             temp += 'O'
+        elif [r, g, b] == [255, 255, 255]:
+            temp += "K"
         else:
             temp += " "
     res.append(temp)

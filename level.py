@@ -35,6 +35,8 @@ class Level:
         self.enemy = pygame.sprite.Group()
         self.constraint = pygame.sprite.Group()
 
+        self.end_tile = pygame.sprite.GroupSingle()
+
         self.statusbar = pygame.sprite.Group()
         statusbar = StatusBar()
         self.statusbar.add(statusbar)
@@ -52,6 +54,9 @@ class Level:
                 elif cell == "T":
                     tile = Tile((x, y), tile_size, "lava")
                     self.traps.add(tile)
+                elif cell == "K":
+                    tile = Tile((x, y), tile_size, "end")
+                    self.end_tile.add(tile)
                 elif cell == "G":
                     gate = Gate((x, y))
                     self.gates.add(gate)
@@ -146,7 +151,7 @@ class Level:
                 if sprite.rect.colliderect(bullet.rect):
                     bullet.status = 'player-shoot-hit'
                     self.enemy.remove(sprite)
-        
+
         flag = False
         for sprite in self.ladders.sprites():
             if sprite.rect.colliderect(player.rect):
@@ -155,6 +160,11 @@ class Level:
             player.on_ladder = True
         else:
             player.on_ladder = False
+
+        for sprite in self.end_tile.sprites():
+            if sprite.rect.colliderect(player.rect):
+                if player.status != 'eblanit':
+                    player.status = 'spin'
 
         if player.on_left and (player.rect.left < self.current_x or player.direction.x >= 0):
             player.on_left = False
@@ -201,6 +211,11 @@ class Level:
             if pygame.sprite.spritecollide(en,self.constraint,False):
                 en.reverse()
 
+    def level_end(self):
+        if self.player.sprite.status == 'eblanit':
+            return True
+        else:
+            return False
 
     def world_shift_update(self, shift):
         self.tiles.update(shift)
@@ -210,6 +225,7 @@ class Level:
         self.gates.update(shift)
         self.traps.update(shift)
         self.coins.update(shift)
+        self.end_tile.update(shift)
 
         self.enemy.update(shift)
         self.constraint.update(shift)
@@ -227,6 +243,7 @@ class Level:
         self.ui.draw(self.display_surface)
         self.gates.draw(self.display_surface)
         self.coins.draw(self.display_surface)
+        self.end_tile.draw(self.display_surface)
         
         # enemy
         self.enemy.draw(self.display_surface)
