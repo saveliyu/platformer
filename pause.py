@@ -1,15 +1,15 @@
 import pygame
 from image_button import ImageButton
 
-class Menu():
-    def init(self, screen):
+class Pause():
+    def __init__(self, screen):
         self.display_surface = screen
         self.buttons = pygame.sprite.Group()
-        self.play = ImageButton((571, 293), "graphics/ui/level_transition/next_lvl.png", hot_key=pygame.K_RETURN)
+        self.play = ImageButton((571, 293), "graphics/ui/level_transition/next_lvl.png")
         self.buttons.add(self.play)
         self.menu = ImageButton((452, 317), "graphics/ui/level_transition/menu.png")
         self.buttons.add(self.menu)
-        self.restart = ImageButton((739, 317), "graphics/ui/level_transition/small_restart.png", hot_key=pygame.K_ESCAPE)
+        self.restart = ImageButton((739, 317), "graphics/ui/level_transition/small_restart.png")
         self.buttons.add(self.restart)
 
     def get_status(self):
@@ -21,6 +21,7 @@ class Menu():
             return 'restart'
         else:
             return 'pause'
+
     def update(self):
-        self.display_surface.fill((0, 0, 0, 150))
+        self.display_surface.fill("black")
         self.buttons.draw(self.display_surface)

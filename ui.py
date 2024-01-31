@@ -20,6 +20,7 @@ class StatusBar(pygame.sprite.Sprite):
 
     def update_states(self, health, bullets):
         health = int(health * 3)
+        if health < 0: health = 0
         bullets = int(bullets)
         self.image = self.health_states[len(self.health_states) - health - 1]
         self.energy_bar = self.energy_states[len(self.energy_states) - bullets - 1]
