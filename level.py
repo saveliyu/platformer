@@ -8,6 +8,7 @@ from button import Button
 from ui import Clue
 from gate import Gate
 from ui import StatusBar
+from particles import ParticleEffect
 
 from debug import debug
 
@@ -34,6 +35,8 @@ class Level:
         self.coins = pygame.sprite.Group()
         self.enemy = pygame.sprite.Group()
         self.constraint = pygame.sprite.Group()
+
+        self.explosion_sprites = pygame.sprite.Group()
 
         self.end_tile = pygame.sprite.GroupSingle()
 
@@ -139,17 +142,24 @@ class Level:
         # проверка на соударение с врагами
         for sprite in self.enemy.sprites():
             if sprite.rect.colliderect(player.rect):
-                if player.direction.x < 0:
-                    player.rect.left = sprite.rect.right
+                player.health_point -= 1
+                print("colide")
+                if player.direction.x < 0:\
+                    # это не дает проходть сквозь врагов
+                    player.rect.left = sprite.rect.right + 60
                     player.on_left = True
                     self.current_x = player.rect.left
                 elif player.direction.x > 0:
-                    player.rect.right = sprite.rect.left
+                    # это не дает проходть сквозь врагов
+                    player.rect.right = sprite.rect.left - 60
                     player.on_right = True
                     self.current_x = player.rect.right
+            # ударение пуль
             for bullet in bullets:
                 if sprite.rect.colliderect(bullet.rect):
                     bullet.status = 'player-shoot-hit'
+                    explosion_sprite = ParticleEffect(sprite.rect.center,'explosion')
+                    self.explosion_sprites.add(explosion_sprite)
                     self.enemy.remove(sprite)
 
         flag = False
@@ -227,6 +237,7 @@ class Level:
         self.coins.update(shift)
         self.end_tile.update(shift)
 
+        self.explosion_sprites.update(shift)
         self.enemy.update(shift)
         self.constraint.update(shift)
         self.enemy_collision_reverse()
@@ -247,6 +258,7 @@ class Level:
         
         # enemy
         self.enemy.draw(self.display_surface)
+        self.explosion_sprites.draw(self.display_surface)
 
         # player
         self.horizontal_movement_collision()
