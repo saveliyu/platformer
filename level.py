@@ -116,7 +116,7 @@ class Level:
                     sprite.turn_on()
                 self.ui.add(but_e)
 
-
+        # проверка на соударение со стенами
         for sprite in self.tiles.sprites():
             if sprite.rect.colliderect(player.rect):
                 if player.direction.x < 0:
@@ -130,9 +130,9 @@ class Level:
             for bullet in bullets:
                 if sprite.rect.colliderect(bullet.rect):
                     bullet.status = 'player-shoot-hit'
-                    bullet.hit_sfx.play()
 
-        for sprite in self.tiles.sprites():
+        # проверка на соударение с врагами
+        for sprite in self.enemy.sprites():
             if sprite.rect.colliderect(player.rect):
                 if player.direction.x < 0:
                     player.rect.left = sprite.rect.right
@@ -145,6 +145,8 @@ class Level:
             for bullet in bullets:
                 if sprite.rect.colliderect(bullet.rect):
                     bullet.status = 'player-shoot-hit'
+                    self.enemy.remove(sprite)
+        
         flag = False
         for sprite in self.ladders.sprites():
             if sprite.rect.colliderect(player.rect):
@@ -198,7 +200,6 @@ class Level:
         for en in self.enemy.sprites():
             if pygame.sprite.spritecollide(en,self.constraint,False):
                 en.reverse()
-                print("hi")
 
 
     def world_shift_update(self, shift):
