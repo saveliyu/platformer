@@ -22,6 +22,14 @@ class Level:
         self.speed = 0
         self.current_x = 0
 
+        self.import_sounds()
+
+    def import_sounds(self):
+        self.collect_sfx = pygame.mixer.Sound("sfx/collect2.wav")
+        self.collect_sfx.set_volume(0.5)
+        self.death_sfx = pygame.mixer.Sound("sfx/death.wav")
+        self.death_sfx.set_volume(0.5)
+
     def setup_level(self, layout):
         self.is_playing = True
 
@@ -70,7 +78,7 @@ class Level:
                     player_sprite = Player((x, y), self.display_surface)
                     self.player.add(player_sprite)
                 elif cell == "C":
-                    tile = Coin(tile_size,x,y,'graphics/temp/coin_anim', 1)
+                    tile = Coin(tile_size, (x, y - 20), 'graphics/temp/battery.png', 1)
                     self.coins.add(tile)
                 elif cell == "E":
                     tile = Enemy(tile_size,x,y)
@@ -160,6 +168,7 @@ class Level:
                     bullet.status = 'player-shoot-hit'
                     explosion_sprite = ParticleEffect(sprite.rect.center,'explosion')
                     self.explosion_sprites.add(explosion_sprite)
+                    self.death_sfx.play()
                     self.enemy.remove(sprite)
 
         # сбор патронов
@@ -170,6 +179,9 @@ class Level:
                     player.bullets_count = 17
                 # print("colide coin", player.bullets_count)
                 self.coins.remove(coin)
+                self.collect_sfx.play()
+                explosion_sprite = ParticleEffect(coin.rect.center, 'pick')
+                self.explosion_sprites.add(explosion_sprite)
                     
 
         flag = False
@@ -183,7 +195,8 @@ class Level:
 
         for sprite in self.end_tile.sprites():
             if sprite.rect.colliderect(player.rect):
-                if player.status != 'eblanit':
+                if player.status != 'eblanit' and player.status != 'spin':
+                    player.powerup_sfx.play()
                     player.status = 'spin'
 
         if player.on_left and (player.rect.left < self.current_x or player.direction.x >= 0):

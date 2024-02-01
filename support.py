@@ -4,6 +4,7 @@ import sys
 import pygame
 from settings import scaling
 
+
 def load_image(filename, scaling=scaling):
     # проверка на наличие файла
     if not os.path.isfile(filename):
@@ -13,6 +14,7 @@ def load_image(filename, scaling=scaling):
     # увеличение изображение в х раз что бы не было слишком мелко
     sheet = pygame.transform.scale(sheet, (sheet.get_width() * scaling, sheet.get_height() * scaling))
     return sheet
+
 
 def import_sprite_sheet(path, sizex, scaling=scaling):
     sizex *= scaling
@@ -28,13 +30,14 @@ def import_sprite_sheet(path, sizex, scaling=scaling):
             frame_location, rect.size)))
     return frames
 
+
 def import_folder(path):
-	surface_list = []
+    surface_list = []
 
-	for _,__,image_files in os.walk(path):
-		for image in image_files:
-			full_path = path + '/' + image
-			image_surf = pygame.image.load(full_path).convert_alpha()
-			surface_list.append(image_surf)
+    for _, __, image_files in os.walk(path):
+        for image in image_files:
+            full_path = path + '/' + image
+            image_surf = pygame.image.load(full_path).convert_alpha()
+            surface_list.append(image_surf)
 
-	return surface_list
+    return surface_list

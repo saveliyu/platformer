@@ -1,5 +1,5 @@
 import pygame
-from support import import_folder
+from support import import_folder, import_sprite_sheet
 
 class ParticleEffect(pygame.sprite.Sprite):
 	def __init__(self,pos,type):
@@ -12,6 +12,9 @@ class ParticleEffect(pygame.sprite.Sprite):
 		# 	self.frames = import_folder('../graphics/character/dust_particles/land')
 		if type == 'explosion':
 			self.frames = import_folder('graphics/temp/Big-Explosion')
+		if type == 'pick':
+			self.frames = import_sprite_sheet('graphics/temp/pick.png', 16)
+			self.animation_speed = 0.15
 		self.image = self.frames[self.frame_index]
 		self.rect = self.image.get_rect(center = pos)
 

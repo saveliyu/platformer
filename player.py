@@ -46,6 +46,8 @@ class Player(pygame.sprite.Sprite):
     def load_sfx(self):
         self.jump_sfx = pygame.mixer.Sound("sfx/jump.wav")
         self.jump_sfx.set_volume(0.5)
+        self.powerup_sfx = pygame.mixer.Sound("sfx/powerup2.wav")
+        self.powerup_sfx.set_volume(0.5)
         self.shoot_sfx = pygame.mixer.Sound("sfx/shoot.wav")
         self.shoot_sfx.set_volume(0.3)
         self.step_sfx = pygame.mixer.Sound("sfx/steps1.wav")
