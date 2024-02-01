@@ -143,7 +143,7 @@ class Level:
         for sprite in self.enemy.sprites():
             if sprite.rect.colliderect(player.rect):
                 player.health_point -= 1
-                print("colide")
+                # print("colide")
                 if player.direction.x < 0:\
                     # это не дает проходть сквозь врагов
                     player.rect.left = sprite.rect.right + 60
@@ -161,6 +161,16 @@ class Level:
                     explosion_sprite = ParticleEffect(sprite.rect.center,'explosion')
                     self.explosion_sprites.add(explosion_sprite)
                     self.enemy.remove(sprite)
+
+        # сбор патронов
+        for coin in self.coins.sprites():
+            if coin.rect.colliderect(player.rect):
+                player.bullets_count += 1
+                if player.bullets_count > 17:
+                    player.bullets_count = 17
+                # print("colide coin", player.bullets_count)
+                self.coins.remove(coin)
+                    
 
         flag = False
         for sprite in self.ladders.sprites():

@@ -36,7 +36,7 @@ class Player(pygame.sprite.Sprite):
 
         # player states
         self.health_point = 8
-        self.bullets_count = 17
+        self.bullets_count = 17 # максимум 17
 
         # bullets
         self.bullets = pygame.sprite.Group()

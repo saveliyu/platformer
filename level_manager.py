@@ -30,7 +30,7 @@ class Manager():
         self.titry = Titry(screen)
         self.screen = screen
         self.import_levels()
-        self.sound_track = pygame.mixer.Sound("sfx/sound_track.wav")
+        self.sound_track = pygame.mixer.Sound("sfx/bounce.wav")
         self.sound_track.set_volume(0.0)
         self.sound_track.play(loops=True)
 
