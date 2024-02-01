@@ -12,7 +12,10 @@ class Tile(pygame.sprite.Sprite):
 		elif type == "ladder":
 			 self.image = load_image("graphics/temp/ladder.png")
 		elif type == "lava":
-			self.image = load_image("graphics/temp/lava.png")
+			if list(pos)[1] == 672:
+				self.image = load_image("graphics/temp/lava2.png")
+			else:
+				self.image = load_image("graphics/temp/lava.png")
 		elif type == "end":
 			self.image = load_image("graphics/temp/end.png")
 

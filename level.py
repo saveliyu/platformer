@@ -244,6 +244,9 @@ class Level:
         self.enemy_collision_reverse()
 
     def run(self):
+        if not self.player.sprite.is_drowned and self.player.sprite.health_point <= 0:
+            self.is_playing = False
+
         self.scroll_x()
         self.display_surface.fill('#151123')
         self.world_shift_update(self.world_shift)

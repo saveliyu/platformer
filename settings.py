@@ -63,7 +63,29 @@ level_map = [["XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
     "X   L                                                 C  C                        XXXXXXX                                              LXXXX            X",
     "X   L                                                                             XXXXXX                O                          O   LXXXX            X",
     "X   L                                                XXXXXXXTTTTTTTTTTTTTTTTTTTTTTXXXXXX                O     E     C   E     E    O   LXXXXTTTTTTTTTTTTX",
-    "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXTTTTTTTTTTTTTTTTTTTTTTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXTTTTTTTTTTTTX",]]
+    "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXTTTTTTTTTTTTTTTTTTTTTTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXTTTTTTTTTTTTX"],
+["XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+"X                                                                                                XXXXXXXXXXXXXXXXXX         XXXXX",
+"X                      O            O                                                              XXXXXXXXXXXXX             XXXX",
+"X             O        O    E       O              P                                                 XXXXXXXX                 XXX",
+"X             O  E     OXXXXXXXXXXXX                                                                  XXXXXX                  XXX",
+"X              XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXL  XXXXXXXXXXXX    XXXX                    XXXXXX                   XX",
+"X       XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX       L     XXXXXXXX            XXXXXL           XXXXX                    XX",
+"X         XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX             L      XXXXXX                  L           XXXXX               K   XXX",
+"X             XXXXXXXXXXXXXXXXXXXXXXXXX                    L       XXXX                   L           XXXXX                  XXXX",
+"X                   XXXXXXXXXXXXXXXX                       L       XXXX                   L          XXXXXX           LXXXXXXXXXX",
+"X                         XXXXXXXX                         L       XXXX                   L          XXXXXX           L     XXXXX",
+"X                           XXXXX                          L        XXX                   L          XXXXXX           L       XXX",
+"X                            XXXX     O     O   C          L        XXX                   L          XXXXXX           L       XXX",
+"X                             XX      O C  EO XXXXX        L        XXXX                  L         XXXXXXX           L      XXXX",
+"X                              X      LXXXXX               L        XXXX   C      C       L         XXXXXXX      LXXXXXXXXXXXXXXX",
+"X                                     L                    L         XXXX                 L        XXXXXXX       L     XXXXXXXXXX",
+"X                                     L O       O          L         XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX          L      XXXXXXXXX",
+"X                                     L O   E   O          L           XXXXXXXXXXXXXXXXXXXX                      L       XXXXXXXX",
+"X                             LXXXX  XXXXXXXXXXX           L                                             O       L   O   XXXXXXXX",
+"X   C   C  OC   C   C     O   LXXXX  XXXXXXXXXXX      XXXXXXXXXXO                            O           O     E L   O  XXXXXXXXX",
+"X          O     E   E    O   LXXXXTTXXXXXXXXXXXTTTTTTXXXXXXXXXXO       E   E C   E   E C  E O XXXTTXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXTTXXXXXXXXXXXTTTTTTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXTTXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"]]
 
 
 

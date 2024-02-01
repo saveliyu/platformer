@@ -33,3 +33,6 @@ class ImageButton(pygame.sprite.Sprite):
         else:
             return False
 
+    def update(self, speed):
+        self.rect.y -= speed
+
