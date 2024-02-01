@@ -74,6 +74,7 @@ class Levels():
         return "levels", self.current_level
 
     def update(self):
+        self.path.image = self.path.frames[self.max_levels - 1]
         self.display_surface.fill("black")
         self.choose_level()
         pos = (self.buttons.sprites()[self.current_level].rect.x + 78, self.buttons.sprites()[self.current_level].rect.y - 30)

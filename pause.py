@@ -5,11 +5,11 @@ class Pause():
     def __init__(self, screen):
         self.display_surface = screen
         self.buttons = pygame.sprite.Group()
-        self.play = ImageButton((571, 414), "graphics/ui/level_transition/next_lvl.png")
+        self.play = ImageButton((571, 414 - 150), "graphics/ui/level_transition/next_lvl.png")
         self.buttons.add(self.play)
-        self.menu = ImageButton((452, 438), "graphics/ui/level_transition/menu.png")
+        self.menu = ImageButton((452, 438 - 150), "graphics/ui/level_transition/menu.png")
         self.buttons.add(self.menu)
-        self.restart = ImageButton((739, 438), "graphics/ui/level_transition/small_restart.png")
+        self.restart = ImageButton((739, 438 - 150), "graphics/ui/level_transition/small_restart.png")
         self.buttons.add(self.restart)
 
 

@@ -16,6 +16,8 @@ class Manager():
             data = json.load(saves)
             self.current_level = data["current_level"]
             self.max_level = data["max_level"]
+        if self.current_level >= self.max_level:
+            self.current_level = self.max_level - 1
         print(self.max_level, self.current_level)
         self.levels = Levels(screen, self.max_level, self.current_level)
         self.menu = Menu(screen)
@@ -23,6 +25,9 @@ class Manager():
         self.trans = Transition(screen)
         self.screen = screen
         self.import_levels()
+        self.sound_track = pygame.mixer.Sound("sfx/sound_track.wav")
+        self.sound_track.set_volume(0.0)
+        self.sound_track.play(loops=True)
 
     def import_levels(self):
         self.loaded_levels = [Level(level_map[0], self.screen),
@@ -34,10 +39,8 @@ class Manager():
             data = json.load(saves)
             data["current_level"] = self.current_level
             data["max_level"] = self.max_level
-
         with open('saves.json', 'w') as file:
             json.dump(data, file, ensure_ascii=False, indent=2)
-        print(data)
 
     def input(self):
         keys = pygame.key.get_pressed()
@@ -54,28 +57,33 @@ class Manager():
             self.restart_level()
             self.current_scene = 'game'
 
-        if self.loaded_levels[self.current_level].level_end():
+        if self.loaded_levels[self.current_level].level_end() and self.current_scene == 'game':
             self.current_level += 1
             if self.max_level <= self.current_level:
                 self.max_level = self.current_level + 1
             self.save_results()
+            self.levels.max_levels = self.max_level
             self.current_scene = 'trans'
 
         if self.current_scene == 'menu':
             self.current_scene = self.menu.get_status()
             self.menu.update()
         elif self.current_scene == 'levels':
+            self.levels.max_levels = self.max_level
             self.current_scene, self.current_level = self.levels.get_status()
+            if self.current_scene == 'game':
+                print("res")
+                self.restart_level()
             self.levels.update()
         elif self.current_scene == 'game':
             self.loaded_levels[self.current_level].run()
         elif self.current_scene == 'trans':
             self.current_scene = self.trans.get_status()
-            if self.current_scene == 'restart':
-                self.current_level -= 1
+            if self.current_level == 'levels':
+                self.restart_level()
             self.trans.update()
         elif self.current_scene == 'pause':
-            print(self.pause.get_status())
             self.current_scene = self.pause.get_status()
             self.pause.update()
         debug(self.current_scene)
+

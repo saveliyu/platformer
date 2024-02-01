@@ -223,6 +223,7 @@ class Level:
 
     def level_end(self):
         if self.player.sprite.status == 'eblanit':
+            self.player.sprite.status = 'idle'
             return True
         else:
             return False

@@ -40,7 +40,7 @@ class Player(pygame.sprite.Sprite):
 
         # bullets
         self.bullets = pygame.sprite.Group()
-
+        self.shoot_flag = False
         self.load_sfx()
 
     def load_sfx(self):
@@ -142,12 +142,14 @@ class Player(pygame.sprite.Sprite):
             self.facing_right = False
         else:
             self.direction.x = 0
-        if list(pygame.mouse.get_pressed())[0] and not self.is_shooting and self.bullets_count > 0:
+        if list(pygame.mouse.get_pressed())[0] and not self.is_shooting and self.bullets_count > 0 and self.shoot_flag:
             self.bullets_count -= 1
             self.is_shooting = True
             if self.direction.x == 0:
                 self.frame_index = 0
             self.maxindex = self.frame_index + 5
+        if not list(pygame.mouse.get_pressed())[0]:
+            self.shoot_flag = True
 
         if keys[pygame.K_SPACE]:
 
