@@ -1,4 +1,5 @@
 import pygame
+from random import randint
 from support import load_image, import_folder, import_sprite_sheet
 
 
@@ -50,7 +51,7 @@ class Coin(pygame.sprite.Sprite):
     def __init__(self, size, pos, path, value):
         super().__init__()
         self.frames = import_sprite_sheet(path, 14)
-        self.current_frame = 0
+        self.current_frame = randint(0, 10)
 
         self.image = self.frames[self.current_frame]
         self.rect = self.image.get_rect(topleft=pos)

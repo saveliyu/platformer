@@ -21,7 +21,7 @@ class Level:
         self.world_shift = 0
         self.speed = 0
         self.current_x = 0
-
+        self.invulnerability_timer = 0
         self.import_sounds()
 
     def import_sounds(self):
@@ -150,18 +150,10 @@ class Level:
         # проверка на соударение с врагами
         for sprite in self.enemy.sprites():
             if sprite.rect.colliderect(player.rect):
-                player.health_point -= 1
-                # print("colide")
-                if player.direction.x < 0:\
-                    # это не дает проходть сквозь врагов
-                    player.rect.left = sprite.rect.right + 60
-                    player.on_left = True
-                    self.current_x = player.rect.left
-                elif player.direction.x > 0:
-                    # это не дает проходть сквозь врагов
-                    player.rect.right = sprite.rect.left - 60
-                    player.on_right = True
-                    self.current_x = player.rect.right
+                if self.invulnerability_timer <= 0:
+                    self.invulnerability_timer = 60
+                    player.health_point -= 2
+
             # ударение пуль
             for bullet in bullets:
                 if sprite.rect.colliderect(bullet.rect):
@@ -267,6 +259,7 @@ class Level:
         self.enemy_collision_reverse()
 
     def run(self):
+        self.invulnerability_timer -= 1
         if not self.player.sprite.is_drowned and self.player.sprite.health_point <= 0:
             self.is_playing = False
 

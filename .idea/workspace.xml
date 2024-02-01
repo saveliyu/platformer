@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5a89e7be-8aff-49b5-9ee9-6570afe614cb" name="Changes" comment="titry">
-      <change afterPath="$PROJECT_DIR$/graphics/temp/battery.png" afterDir="false" />
+    <list default="true" id="5a89e7be-8aff-49b5-9ee9-6570afe614cb" name="Changes" comment="sounds and battery">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/level.py" beforeDir="false" afterPath="$PROJECT_DIR$/level.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/particles.py" beforeDir="false" afterPath="$PROJECT_DIR$/particles.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/level_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/level_manager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/saves.json" beforeDir="false" afterPath="$PROJECT_DIR$/saves.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/support.py" beforeDir="false" afterPath="$PROJECT_DIR$/support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tiles.py" beforeDir="false" afterPath="$PROJECT_DIR$/tiles.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -121,13 +119,21 @@
       <option name="project" value="LOCAL" />
       <updated>1706805939325</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="sounds and battery">
+      <created>1706811552450</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1706811552450</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="pause" />
     <MESSAGE value="level transition" />
     <MESSAGE value="titry" />
-    <option name="LAST_COMMIT_MESSAGE" value="titry" />
+    <MESSAGE value="sounds and battery" />
+    <option name="LAST_COMMIT_MESSAGE" value="sounds and battery" />
   </component>
 </project>

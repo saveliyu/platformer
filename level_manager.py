@@ -58,6 +58,8 @@ class Manager():
         self.loaded_levels[self.current_level] = Level(level_map[self.current_level], self.screen)
 
     def update(self):
+        if self.current_level >= self.max_level:
+            self.current_level = self.max_level - 1
         self.input()
 
         if self.current_scene == 'restart' or self.current_scene == 'level':
