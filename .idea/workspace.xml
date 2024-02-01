@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5a89e7be-8aff-49b5-9ee9-6570afe614cb" name="Changes" comment="enemy">
-      <change afterPath="$PROJECT_DIR$/options.py" afterDir="false" />
+    <list default="true" id="5a89e7be-8aff-49b5-9ee9-6570afe614cb" name="Changes" comment="options">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image_button.py" beforeDir="false" afterPath="$PROJECT_DIR$/image_button.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/level.py" beforeDir="false" afterPath="$PROJECT_DIR$/level.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/level_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/level_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/menu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/saves.json" beforeDir="false" afterPath="$PROJECT_DIR$/saves.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +34,7 @@
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
+    <option name="sortByType" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
@@ -135,7 +132,14 @@
       <option name="project" value="LOCAL" />
       <updated>1706812296094</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="options">
+      <created>1706817967857</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1706817967857</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -144,6 +148,7 @@
     <MESSAGE value="titry" />
     <MESSAGE value="sounds and battery" />
     <MESSAGE value="enemy" />
-    <option name="LAST_COMMIT_MESSAGE" value="enemy" />
+    <MESSAGE value="options" />
+    <option name="LAST_COMMIT_MESSAGE" value="options" />
   </component>
 </project>

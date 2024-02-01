@@ -11,8 +11,9 @@ from level_manager import Manager
 pygame.init()
 screen = pygame.display.set_mode((screen_width, screen_height))
 clock = pygame.time.Clock()
-
-game_over = load_image("graphics/ui/game_over.png", scaling=6)
+load = load_image('graphics/ui/load/load.png', scaling=6)
+screen.blit(load, (0, 0))
+pygame.display.update()
 level = Manager(screen)
 
 while True:
@@ -21,5 +22,6 @@ while True:
             pygame.quit()
             sys.exit()
     level.update()
+
     pygame.display.update()
     clock.tick(60)

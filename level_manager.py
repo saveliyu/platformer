@@ -14,6 +14,7 @@ from level_transition import Transition
 
 class Manager():
     def __init__(self, screen):
+        screen.fill('red')
         self.current_scene = 'menu'
         self.load_results()
         if self.current_level >= self.max_level:
