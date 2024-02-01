@@ -2,7 +2,7 @@ import pygame
 
 from settings import tile_size, screen_width, scaling
 from tiles import Tile, Coin, AnimatedTile, TileEmpty
-from enemy import Enemy
+from enemy import Enemy, EnemyDragonеTurret
 from player import Player
 from button import Button
 from ui import Clue
@@ -42,6 +42,7 @@ class Level:
         self.gates = pygame.sprite.Group()
         self.coins = pygame.sprite.Group()
         self.enemy = pygame.sprite.Group()
+        self.enemyDragonеTurret = pygame.sprite.Group()
         self.constraint = pygame.sprite.Group()
 
         self.explosion_sprites = pygame.sprite.Group()
@@ -81,12 +82,20 @@ class Level:
                     tile = Coin(tile_size, (x, y - 20), 'graphics/temp/battery.png', 1)
                     self.coins.add(tile)
                 elif cell == "E":
-                    tile = Enemy(tile_size,x,y)
+                    tile = Enemy(tile_size,x,y, "skelet")
                     self.enemy.add(tile)
                 elif cell == "O":
                     tile = Tile((x, y), tile_size, "lava")
                     self.constraint.add(tile)
-
+                elif cell == "R":
+                    tile = EnemyDragonеTurret(tile_size, x, y, 1, self.display_surface)
+                    self.enemyDragonеTurret.add(tile)
+                elif cell == "D":
+                    tile = EnemyDragonеTurret(tile_size, x, y, -1, self.display_surface)
+                    self.enemyDragonеTurret.add(tile)
+                elif cell == "M":
+                    tile = Enemy(tile_size,x,y, "bat")
+                    self.enemy.add(tile)
 
         if self.player.sprite.rect.x >= screen_width:
             self.world_shift_update(-self.player.sprite.rect.x + screen_width // 2)
@@ -147,13 +156,25 @@ class Level:
                 if sprite.rect.colliderect(bullet.rect):
                     bullet.status = 'player-shoot-hit'
 
+            for drag in self.enemyDragonеTurret.sprites():
+                for dragon_fire in drag.bullets.sprites():
+                    if dragon_fire.rect.colliderect(sprite.rect):
+                        dragon_fire.status = 'explosion'
+        
+        for drag in self.enemyDragonеTurret.sprites():
+                for dragon_fire in drag.bullets.sprites():
+                    if dragon_fire.rect.colliderect(player.rect):
+                        dragon_fire.status = 'explosion'
+                        if self.invulnerability_timer <= 0:
+                            self.invulnerability_timer = 50
+                            player.health_point -= 4
+
         # проверка на соударение с врагами
         for sprite in self.enemy.sprites():
             if sprite.rect.colliderect(player.rect):
                 if self.invulnerability_timer <= 0:
                     self.invulnerability_timer = 50
                     player.health_point -= 4
-
             # ударение пуль
             for bullet in bullets:
                 if sprite.rect.colliderect(bullet.rect):
@@ -162,6 +183,21 @@ class Level:
                     self.explosion_sprites.add(explosion_sprite)
                     self.death_sfx.play()
                     self.enemy.remove(sprite)
+        
+        # проверка на соударение с драконами
+        for sprite in self.enemyDragonеTurret.sprites():
+            if sprite.rect.colliderect(player.rect):
+                if self.invulnerability_timer <= 0:
+                    self.invulnerability_timer = 50
+                    player.health_point -= 4
+            # ударение пуль
+            for bullet in bullets:
+                if sprite.rect.colliderect(bullet.rect):
+                    bullet.status = 'player-shoot-hit'
+                    explosion_sprite = ParticleEffect(sprite.rect.center,'explosion')
+                    self.explosion_sprites.add(explosion_sprite)
+                    self.death_sfx.play()
+                    self.enemyDragonеTurret.remove(sprite)
 
         # сбор патронов
         for coin in self.coins.sprites():
@@ -255,6 +291,7 @@ class Level:
 
         self.explosion_sprites.update(shift)
         self.enemy.update(shift)
+        self.enemyDragonеTurret.update(shift)
         self.constraint.update(shift)
         self.enemy_collision_reverse()
 
@@ -279,6 +316,7 @@ class Level:
         # enemy
         self.enemy.draw(self.display_surface)
         self.explosion_sprites.draw(self.display_surface)
+        self.enemyDragonеTurret.draw(self.display_surface)
 
         # player
         self.horizontal_movement_collision()

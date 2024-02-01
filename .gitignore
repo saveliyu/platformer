@@ -1,6 +1,6 @@
 # Default ignored files
 /shelf/
 /workspace.xml
-__pycache__
-.vscode
-.pyc
+/.vscode
+/.pyc
+/__pycache__
