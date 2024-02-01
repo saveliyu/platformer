@@ -151,8 +151,8 @@ class Level:
         for sprite in self.enemy.sprites():
             if sprite.rect.colliderect(player.rect):
                 if self.invulnerability_timer <= 0:
-                    self.invulnerability_timer = 60
-                    player.health_point -= 2
+                    self.invulnerability_timer = 50
+                    player.health_point -= 4
 
             # ударение пуль
             for bullet in bullets:

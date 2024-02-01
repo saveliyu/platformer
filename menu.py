@@ -9,7 +9,7 @@ class Menu():
         self.buttons.add(self.levels)
         self.options = ImageButton((728, 336), "graphics/ui/main_menu/options.png")
         self.buttons.add(self.options)
-        self.exit = ImageButton((728, 432), "graphics/ui/main_menu/exit.png", hot_key=pygame.K_ESCAPE)
+        self.exit = ImageButton((728, 432), "graphics/ui/main_menu/exit.png")
         self.buttons.add(self.exit)
         self.frame = 0
         self.import_player()

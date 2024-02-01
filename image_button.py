@@ -33,6 +33,12 @@ class ImageButton(pygame.sprite.Sprite):
         else:
             return False
 
+    def input_slider(self):
+        pressed = pygame.mouse.get_pressed()
+        pos = pygame.mouse.get_pos()
+        if pressed[0] and self.rect.collidepoint(pos):
+            return pos
+
     def update(self, speed):
         self.rect.y -= speed
 

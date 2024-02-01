@@ -9,16 +9,13 @@ from pause import Pause
 from debug import debug
 from death_menu import Death
 from titry import Titry
+from options import Options
 from level_transition import Transition
 
 class Manager():
     def __init__(self, screen):
         self.current_scene = 'menu'
-        with open('saves.json') as saves:
-            data = json.load(saves)
-            self.current_level = data["current_level"]
-            self.max_level = data["max_level"]
-            self.watched_titry = data["watched_titry"]
+        self.load_results()
         if self.current_level >= self.max_level:
             self.current_level = self.max_level - 1
         print(self.max_level, self.current_level)
@@ -28,10 +25,14 @@ class Manager():
         self.trans = Transition(screen)
         self.death = Death(screen)
         self.titry = Titry(screen)
+        self.options = Options(screen, self.music_volume, self.sfx_volume)
         self.screen = screen
         self.import_levels()
-        self.sound_track = pygame.mixer.Sound("sfx/bounce.wav")
-        self.sound_track.set_volume(0.0)
+
+
+
+        self.sound_track = pygame.mixer.Sound("sfx/sound_track.wav")
+        self.sound_track.set_volume(self.music_volume)
         self.sound_track.play(loops=True)
 
     def import_levels(self):
@@ -40,12 +41,23 @@ class Manager():
                             Level(level_map[2], self.screen),
                             Level(level_map[3], self.screen)]
 
+    def load_results(self):
+        with open('saves.json') as saves:
+            data = json.load(saves)
+            self.current_level = data["current_level"]
+            self.max_level = data["max_level"]
+            self.watched_titry = data["watched_titry"]
+            self.music_volume = data["music_volume"]
+            self.sfx_volume = data["sfx_volume"]
+
     def save_results(self):
         with open('saves.json') as saves:
             data = json.load(saves)
             data["current_level"] = self.current_level
             data["max_level"] = self.max_level
             data["watched_titry"] = self.watched_titry
+            data['music_volume'] = self.music_volume
+            data['sfx_volume'] = self.sfx_volume
         with open('saves.json', 'w') as file:
             json.dump(data, file, ensure_ascii=False, indent=2)
 
@@ -111,3 +123,15 @@ class Manager():
                 self.watched_titry = 1
                 self.save_results()
             self.titry.update()
+        elif self.current_scene == 'options':
+            self.current_scene = self.options.get_status()
+            self.music_volume, self.sfx_volume = self.options.get_velocity(self.music_volume, self.sfx_volume)
+            if self.current_scene == 'restart':
+                self.load_results()
+                self.save_results()
+                self.levels.current_level = self.current_level
+                self.current_scene = 'options'
+            self.sound_track.set_volume(self.music_volume)
+            self.options.update()
+
+
