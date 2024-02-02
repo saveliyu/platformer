@@ -10,6 +10,8 @@ def load_image(filename, scaling=scaling):
     if not os.path.isfile(filename):
         print(f"Файл с изображением '{filename}' не найден")
         sys.exit()
+
+    print(filename)
     sheet = pygame.image.load(filename).convert_alpha()
     # увеличение изображение в х раз что бы не было слишком мелко
     sheet = pygame.transform.scale(sheet, (sheet.get_width() * scaling, sheet.get_height() * scaling))
@@ -37,7 +39,7 @@ def import_folder(path):
     for _, __, image_files in os.walk(path):
         for image in image_files:
             full_path = path + '/' + image
-            image_surf = pygame.image.load(full_path).convert_alpha()
+            image_surf = load_image(full_path)
             surface_list.append(image_surf)
 
     return surface_list
