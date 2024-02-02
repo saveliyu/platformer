@@ -40,7 +40,8 @@ class Manager():
         self.loaded_levels = [Level(level_map[0], self.screen, self.sfx_volume),
                             Level(level_map[1], self.screen, self.sfx_volume),
                             Level(level_map[2], self.screen, self.sfx_volume),
-                            Level(level_map[3], self.screen, self.sfx_volume)]
+                            Level(level_map[3], self.screen, self.sfx_volume),
+                            Level(level_map[4], self.screen, self.sfx_volume)]
 
     def load_results(self):
         with open('saves.json') as saves:
@@ -57,6 +58,9 @@ class Manager():
             data["current_level"] = self.current_level
             data["max_level"] = self.max_level
             data["watched_titry"] = self.watched_titry
+            if self.watched_titry:
+                data["max_level"] = 5
+                self.max_level = 5
             data['music_volume'] = self.music_volume
             data['sfx_volume'] = self.sfx_volume
         with open('saves.json', 'w') as file:
@@ -86,7 +90,7 @@ class Manager():
             self.save_results()
             self.levels.max_levels = self.max_level
             if self.max_level > len(self.loaded_levels):
-                self.max_level = len(self.loaded_levels)
+                self.max_level = len(self.loaded_levels) - 1
                 self.current_level = 0
                 if not self.watched_titry:
                     self.current_scene = 'titry'
@@ -97,7 +101,10 @@ class Manager():
             self.current_scene = self.menu.get_status()
             self.menu.update()
         elif self.current_scene == 'levels':
-            self.levels.max_levels = self.max_level
+            if self.watched_titry:
+                self.levels.max_levels = 5
+            else:
+                self.levels.max_levels = self.max_level
             self.current_scene, self.current_level = self.levels.get_status()
             if self.current_scene == 'game':
                 print("res")

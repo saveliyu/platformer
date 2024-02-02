@@ -51,7 +51,7 @@ class Level:
 
         self.explosion_sprites = pygame.sprite.Group()
 
-        self.end_tile = pygame.sprite.GroupSingle()
+        self.end_tile = pygame.sprite.Group()
 
         self.statusbar = pygame.sprite.Group()
         statusbar = StatusBar()
@@ -101,9 +101,10 @@ class Level:
                     tile = Enemy(tile_size,x,y, "bat")
                     self.enemy.add(tile)
 
-        self.world_shift_update(-self.player.sprite.rect.x + screen_width // 2)
-        self.player.sprite.rect.x += -self.player.sprite.rect.x + screen_width // 2
-        self.player.sprite.rect.x += -self.player.sprite.rect.x + screen_width // 2
+        if self.player.sprite.rect.x >= screen_width // 2:
+            self.world_shift_update(-self.player.sprite.rect.x + screen_width // 2)
+            self.player.sprite.rect.x += -self.player.sprite.rect.x + screen_width // 2
+            self.player.sprite.rect.x += -self.player.sprite.rect.x + screen_width // 2
 
 
     def scroll_x(self):
@@ -186,6 +187,7 @@ class Level:
                     player.hit_sfx.play()
             # ударение пуль
             for bullet in bullets:
+                print('e')
                 if sprite.rect.colliderect(bullet.rect):
                     bullet.status = 'player-shoot-hit'
                     explosion_sprite = ParticleEffect(sprite.rect.center,'explosion')

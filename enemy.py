@@ -9,12 +9,15 @@ class Enemy(AnimatedTile):
 		if style == "skelet":
 			self.speed = -(randint(20,30) / 10)
 			self.path = "graphics/enemies/skeleton/skeleton-walk"
+			super().__init__(size, x, y, self.path)
+			self.rect.y += size - self.image.get_size()[1]
 		elif style == "bat":
 			self.speed = -(randint(30,40) / 10)
 			self.path = "graphics/enemies/bat"
+			super().__init__(size, x, y, self.path)
+			self.rect.y += size - self.image.get_size()[1] + 30
 
-		super().__init__(size,x,y, self.path)
-		self.rect.y += size - self.image.get_size()[1]
+
 
 
 	def move(self):
@@ -50,8 +53,8 @@ class EnemyDragonеTurret(AnimatedTile):
 			self.image = pygame.transform.flip(self.image,True,False)
 
 	def shoot(self):
-		if self.frame_index == 0:
-			bullet = BulletEnemy(self.rect.topleft, self.dir)
+		if self.frame_index == 11.100000000000016:
+			bullet = BulletEnemy((self.rect.x, self.rect.y + 16), self.dir)
 			self.bullets.add(bullet)
 		
 	def update(self,shift):

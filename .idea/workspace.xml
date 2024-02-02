@@ -4,21 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5a89e7be-8aff-49b5-9ee9-6570afe614cb" name="Changes" comment="анимация урона">
-      <change afterPath="$PROJECT_DIR$/numbers.py" afterDir="false" />
+    <list default="true" id="5a89e7be-8aff-49b5-9ee9-6570afe614cb" name="Changes" comment="уровни">
+      <change afterPath="$PROJECT_DIR$/graphics/temp/level5.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphics/temp/block.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphics/temp/block.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphics/temp/level pallete.aseprite" beforeDir="false" afterPath="$PROJECT_DIR$/graphics/temp/level pallete.aseprite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphics/temp/level1.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphics/temp/level1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphics/temp/level2.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphics/temp/level2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/enemy.py" beforeDir="false" afterPath="$PROJECT_DIR$/enemy.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphics/temp/level3.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphics/temp/level3.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/graphics/temp/level4.png" beforeDir="false" afterPath="$PROJECT_DIR$/graphics/temp/level4.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/level importer.py" beforeDir="false" afterPath="$PROJECT_DIR$/level importer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/level.py" beforeDir="false" afterPath="$PROJECT_DIR$/level.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/level_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/level_manager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/levels3.py" beforeDir="false" afterPath="$PROJECT_DIR$/levels3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/saves.json" beforeDir="false" afterPath="$PROJECT_DIR$/saves.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tiles.py" beforeDir="false" afterPath="$PROJECT_DIR$/tiles.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,7 +168,14 @@
       <option name="project" value="LOCAL" />
       <updated>1706857592213</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="уровни">
+      <created>1706866950949</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1706866950949</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -184,6 +188,7 @@
     <MESSAGE value="load" />
     <MESSAGE value="норм размеры" />
     <MESSAGE value="анимация урона" />
-    <option name="LAST_COMMIT_MESSAGE" value="анимация урона" />
+    <MESSAGE value="уровни" />
+    <option name="LAST_COMMIT_MESSAGE" value="уровни" />
   </component>
 </project>

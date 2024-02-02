@@ -1,6 +1,6 @@
 from PIL import Image
 
-im = Image.open("graphics/temp/level4.png")
+im = Image.open("graphics/temp/level5.png")
 pixels = im.load()  # список с пикселями
 x, y = im.size  # ширина (x) и высота (y) изображения
 res = []
