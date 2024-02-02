@@ -37,10 +37,10 @@ class Manager():
         self.sound_track.play(loops=True)
 
     def import_levels(self):
-        self.loaded_levels = [Level(level_map[0], self.screen),
-                            Level(level_map[1], self.screen),
-                            Level(level_map[2], self.screen),
-                            Level(level_map[3], self.screen)]
+        self.loaded_levels = [Level(level_map[0], self.screen, self.sfx_volume),
+                            Level(level_map[1], self.screen, self.sfx_volume),
+                            Level(level_map[2], self.screen, self.sfx_volume),
+                            Level(level_map[3], self.screen, self.sfx_volume)]
 
     def load_results(self):
         with open('saves.json') as saves:
@@ -68,7 +68,7 @@ class Manager():
             self.current_scene = "pause"
 
     def restart_level(self):
-        self.loaded_levels[self.current_level] = Level(level_map[self.current_level], self.screen)
+        self.loaded_levels[self.current_level] = Level(level_map[self.current_level], self.screen, self.sfx_volume)
 
     def update(self):
         if self.current_level >= self.max_level:
@@ -104,6 +104,8 @@ class Manager():
                 self.restart_level()
             self.levels.update()
         elif self.current_scene == 'game':
+            self.loaded_levels[self.current_level].update_volume()
+            self.loaded_levels[self.current_level].player.sprite.update_volume()
             self.loaded_levels[self.current_level].run()
             if not self.loaded_levels[self.current_level].is_playing:
                 self.current_scene = 'death'
@@ -133,6 +135,8 @@ class Manager():
                 self.levels.current_level = self.current_level
                 self.current_scene = 'options'
             self.sound_track.set_volume(self.music_volume)
+            self.loaded_levels[self.current_level].volume = self.sfx_volume
+            self.loaded_levels[self.current_level].player.sprite.volume = self.sfx_volume
             self.options.update()
 
 

@@ -13,10 +13,11 @@ from particles import ParticleEffect
 from debug import debug
 
 class Level:
-    def __init__(self, level_data, surface):
+    def __init__(self, level_data, surface, volume):
 
         # level setup
         self.display_surface = surface
+        self.volume = volume
         self.setup_level(level_data)
         self.world_shift = 0
         self.speed = 0
@@ -24,11 +25,14 @@ class Level:
         self.invulnerability_timer = 0
         self.import_sounds()
 
+    def update_volume(self):
+        self.collect_sfx.set_volume(0.5 * self.volume)
+        self.death_sfx.set_volume(0.7 * self.volume)
     def import_sounds(self):
         self.collect_sfx = pygame.mixer.Sound("sfx/collect2.wav")
-        self.collect_sfx.set_volume(0.5)
+        self.collect_sfx.set_volume(0.5 * self.volume)
         self.death_sfx = pygame.mixer.Sound("sfx/death.wav")
-        self.death_sfx.set_volume(0.5)
+        self.death_sfx.set_volume(0.7 * self.volume)
 
     def setup_level(self, layout):
         self.is_playing = True
@@ -76,7 +80,7 @@ class Level:
                     button = Button((x, y))
                     self.buttons.add(button)
                 elif cell == "P":
-                    player_sprite = Player((x, y), self.display_surface)
+                    player_sprite = Player((x, y), self.display_surface, self.volume)
                     self.player.add(player_sprite)
                 elif cell == "C":
                     tile = Coin(tile_size, (x, y - 20), 'graphics/temp/battery.png', 1)
@@ -168,6 +172,9 @@ class Level:
                         if self.invulnerability_timer <= 0:
                             self.invulnerability_timer = 50
                             player.health_point -= 4
+                            player.status = 'damage'
+                            player.frame_index = 0
+                            player.hit_sfx.play()
 
         # проверка на соударение с врагами
         for sprite in self.enemy.sprites():
@@ -175,6 +182,9 @@ class Level:
                 if self.invulnerability_timer <= 0:
                     self.invulnerability_timer = 50
                     player.health_point -= 4
+                    player.status = 'damage'
+                    player.frame_index = 0
+                    player.hit_sfx.play()
             # ударение пуль
             for bullet in bullets:
                 if sprite.rect.colliderect(bullet.rect):
@@ -190,6 +200,9 @@ class Level:
                 if self.invulnerability_timer <= 0:
                     self.invulnerability_timer = 50
                     player.health_point -= 4
+                    player.status = 'damage'
+                    player.frame_index = 0
+                    player.hit_sfx.play()
             # ударение пуль
             for bullet in bullets:
                 if sprite.rect.colliderect(bullet.rect):
@@ -298,6 +311,8 @@ class Level:
     def run(self):
         self.invulnerability_timer -= 1
         if not self.player.sprite.is_drowned and self.player.sprite.health_point <= 0:
+            self.is_playing = False
+        elif self.player.sprite.health_point <= 0 and self.player.sprite.status == 'dead':
             self.is_playing = False
 
         self.scroll_x()

@@ -11,7 +11,6 @@ def load_image(filename, scaling=scaling):
         print(f"Файл с изображением '{filename}' не найден")
         sys.exit()
 
-    print(filename)
     sheet = pygame.image.load(filename).convert_alpha()
     # увеличение изображение в х раз что бы не было слишком мелко
     sheet = pygame.transform.scale(sheet, (sheet.get_width() * scaling, sheet.get_height() * scaling))

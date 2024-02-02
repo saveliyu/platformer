@@ -7,8 +7,9 @@ from bullet import Bullet
 
 class Player(pygame.sprite.Sprite):
 
-    def __init__(self, pos, screen):
+    def __init__(self, pos, screen, volume):
         super().__init__()
+        self.volume = volume
         self.import_character_assets()
         self.display_surface = screen
         self.frame_index = 0
@@ -42,19 +43,28 @@ class Player(pygame.sprite.Sprite):
         self.bullets = pygame.sprite.Group()
         self.shoot_flag = False
         self.load_sfx()
+        self.update_volume()
+
+    def update_volume(self):
+        self.jump_sfx.set_volume(0.5 * self.volume)
+        self.powerup_sfx.set_volume(0.5 * self.volume)
+        self.shoot_sfx.set_volume(0.3 * self.volume)
+        self.step_sfx.set_volume(0.1 * self.volume)
+        self.bounce_sfx.set_volume(1 * self.volume)
+        self.ladder_sfx.set_volume(1 * self.volume)
+        self.drown_sfx.set_volume(1 * self.volume)
+        self.hit_sfx.set_volume(1 * self.volume)
 
     def load_sfx(self):
         self.jump_sfx = pygame.mixer.Sound("sfx/jump.wav")
-        self.jump_sfx.set_volume(0.5)
         self.powerup_sfx = pygame.mixer.Sound("sfx/powerup2.wav")
-        self.powerup_sfx.set_volume(0.5)
         self.shoot_sfx = pygame.mixer.Sound("sfx/shoot.wav")
-        self.shoot_sfx.set_volume(0.3)
         self.step_sfx = pygame.mixer.Sound("sfx/steps1.wav")
-        self.step_sfx.set_volume(0.1)
         self.bounce_sfx = pygame.mixer.Sound("sfx/bounce.wav")
         self.ladder_sfx = pygame.mixer.Sound("sfx/ladder.wav")
         self.drown_sfx = pygame.mixer.Sound("sfx/drown1.wav")
+        self.hit_sfx = pygame.mixer.Sound("sfx/hit.wav")
+
         # кол-во кадров для проигрывания звука смерти от лавы
         self.drown_timer = 120
 
@@ -101,6 +111,12 @@ class Player(pygame.sprite.Sprite):
                 self.is_shooting = False
             elif self.status == 'spin':
                 self.status = "eblanit"
+            elif self.status == 'damage':
+                if self.health_point <= 0:
+                    self.status == "dead"
+                else:
+                    self.status = "idle"
+
         if self.frame_index == 0 and self.status == 'ladder':
             self.ladder_sfx.play()
         image = animation[int(self.frame_index)]
@@ -161,7 +177,7 @@ class Player(pygame.sprite.Sprite):
                 self.jump_sfx.play()
 
     def get_status(self):
-        if self.status != 'spin':
+        if self.status != 'spin' and self.status != 'damage':
             if self.is_shooting and self.direction:
                 self.status = "run-shoot"
             elif self.is_shooting:
