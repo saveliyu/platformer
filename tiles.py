@@ -1,6 +1,7 @@
 import pygame
 from random import randint
 from support import load_image, import_folder, import_sprite_sheet
+from random import randint
 
 
 class Tile(pygame.sprite.Sprite):
@@ -8,7 +9,17 @@ class Tile(pygame.sprite.Sprite):
         super().__init__()
         # загружает изображение тайла в зависимости от символа в level_map
         if type == "block":
-            self.image = load_image("graphics/temp/block.png")
+            self.frames = import_sprite_sheet("graphics/temp/block.png", 16)
+            f = randint(0, 15)
+            if f == 10:
+                f = 2
+            elif f == 9 or f == 8 or f == 7:
+                f = 0
+            else:
+                f = 1
+            self.image = self.frames[f]
+
+
         elif type == "ladder":
             self.image = load_image("graphics/temp/ladder.png")
         elif type == "lava":

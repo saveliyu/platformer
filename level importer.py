@@ -24,6 +24,12 @@ for i in range(y):
             temp += 'O'
         elif [r, g, b] == [255, 255, 255]:
             temp += "K"
+        elif [r, g, b] == [175, 130, 60]:
+            temp += "R"
+        elif [r, g, b] == [160, 175, 60]:
+            temp += "D"
+        elif [r, g, b] == [85, 40, 210]:
+            temp += "M"
         else:
             temp += " "
     res.append(temp)

@@ -37,7 +37,7 @@ class Player(pygame.sprite.Sprite):
 
         # player states
         self.health_point = 8
-        self.bullets_count = 17 # максимум 17
+        self.bullets_count = 0 # максимум 17
 
         # bullets
         self.bullets = pygame.sprite.Group()
@@ -202,7 +202,8 @@ class Player(pygame.sprite.Sprite):
         self.direction.y = self.jump_speed
 
     def update(self, world_shift):
-
+        if self.bullets_count > 17:
+            self.bullets_count = 17
         self.bullets.draw(self.display_surface)
         self.bullets.update(world_shift)
         if self.health_point > 0 and self.status != "spin":

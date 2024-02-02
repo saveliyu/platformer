@@ -101,10 +101,9 @@ class Level:
                     tile = Enemy(tile_size,x,y, "bat")
                     self.enemy.add(tile)
 
-        if self.player.sprite.rect.x >= screen_width:
-            self.world_shift_update(-self.player.sprite.rect.x + screen_width // 2)
-            self.player.sprite.rect.x += -self.player.sprite.rect.x + screen_width // 2
-            self.player.sprite.rect.x += -self.player.sprite.rect.x + screen_width // 2
+        self.world_shift_update(-self.player.sprite.rect.x + screen_width // 2)
+        self.player.sprite.rect.x += -self.player.sprite.rect.x + screen_width // 2
+        self.player.sprite.rect.x += -self.player.sprite.rect.x + screen_width // 2
 
 
     def scroll_x(self):
