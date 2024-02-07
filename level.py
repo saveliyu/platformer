@@ -187,7 +187,6 @@ class Level:
                     player.hit_sfx.play()
             # ударение пуль
             for bullet in bullets:
-                print('e')
                 if sprite.rect.colliderect(bullet.rect):
                     bullet.status = 'player-shoot-hit'
                     explosion_sprite = ParticleEffect(sprite.rect.center,'explosion')
@@ -219,7 +218,6 @@ class Level:
                 player.bullets_count += 1
                 if player.bullets_count > 17:
                     player.bullets_count = 17
-                # print("colide coin", player.bullets_count)
                 self.coins.remove(coin)
                 self.collect_sfx.play()
                 explosion_sprite = ParticleEffect(coin.rect.center, 'pick')

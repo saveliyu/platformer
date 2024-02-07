@@ -19,7 +19,6 @@ class Manager():
         self.load_results()
         if self.current_level >= self.max_level:
             self.current_level = self.max_level - 1
-        print(self.max_level, self.current_level)
         self.levels = Levels(screen, self.max_level, self.current_level)
         self.menu = Menu(screen)
         self.pause = Pause(screen)
@@ -107,7 +106,6 @@ class Manager():
                 self.levels.max_levels = self.max_level
             self.current_scene, self.current_level = self.levels.get_status()
             if self.current_scene == 'game':
-                print("res")
                 self.restart_level()
             self.levels.update()
         elif self.current_scene == 'game':

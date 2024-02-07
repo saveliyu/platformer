@@ -43,7 +43,6 @@ class Options():
         elif self.restart.get_input():
             with open('saves.json') as saves:
                 data = json.load(saves)
-                print(data)
                 data["current_level"] = 0
                 data["max_level"] = 1
                 data["watched_titry"] = 0

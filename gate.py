@@ -26,7 +26,6 @@ class Gate(pygame.sprite.Sprite):
             if self.isnt_open:
                 self.open_sfx.play()
                 self.isnt_open = False
-                print('s')
             self.openning = True
         else:
             self.openning = False
